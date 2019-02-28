@@ -253,6 +253,12 @@ command! -bang -nargs=? -complete=file SWInclude call sw#sqlwindow#include(<bang
 command! -nargs=+ -complete=customlist,sw#autocomplete_profile SWServerStart call sw#server#run(<f-args>)
 command! -nargs=1 SWServerStop call sw#server#stop(<f-args>)
 
+command! -bang -nargs=? -complete=buffer SWSqlFzfSelect call fzf#run( {
+  \  'source': fzf#sw_profiles#init(),
+  \  'sink*': function('fzf#sw_profiles#accept'),
+  \  'options': '-m -x +s --prompt=DataBase:',
+  \  'down': '40%'} )
+
 augroup sw
 autocmd sw BufDelete,BufWipeout * call sw#session#sync()
 autocmd sw SessionLoadPost * call sw#session#restore()
