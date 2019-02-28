@@ -160,11 +160,9 @@ function! sw#server#start_sqlwb(handler, ...)
 
     let valid_exe = 1
     if !filereadable(g:sw_exe)
-        echom g:sw_exe . " is not readable. Make sure the setting g:sw_exe is set and the file exists."
         let valid_exe = 0
     endif
     if match(getfperm(g:sw_exe), "r.x.*") ==# -1
-        echom g:sw_exe . " is not executable. Make sure the permissions are set correctly."
         let valid_exe = 0
     endif
 
@@ -219,20 +217,8 @@ function! s:try_wbconnect_extract(sql)
 
     if substitute(a:sql, pprofile, '\1', 'g') == ''
         let group = ''
-        echom '1_test1 :' . substitute(a:sql, pprofile, '\1', 'g')
-        echom '1_test2 :' . substitute(a:sql, pprofile, '\2', 'g')
-        echom '1_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
-        echom '1_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
-        echom '1_test4 :' . substitute(a:sql, pprofile, '\4', 'g')
-        echom '1_test5 :' . substitute(a:sql, pprofile, '\5', 'g')
         let profile = substitute(a:sql, pprofile, '\6', 'g')
     else
-        echom '2_test1 :' . substitute(a:sql, pprofile, '\1', 'g')
-        echom '2_test2 :' . substitute(a:sql, pprofile, '\2', 'g')
-        echom '2_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
-        echom '2_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
-        echom '2_test4 :' . substitute(a:sql, pprofile, '\4', 'g')
-        echom '2_test5 :' . substitute(a:sql, pprofile, '\5', 'g')
         let profile = substitute(a:sql, pprofile, '\5', 'g')
         let group = substitute(a:sql, pgroup, '\5', 'g')
     endif
@@ -253,13 +239,8 @@ function! sw#server#execute_sql(sql, ...)
     elseif a:0 >= 1
         let channel = a:1
     endif
-    echom 'execute_sql---------------------------'
-    echom 'sql : ' . a:sql
     if a:sql =~ s:pattern_wbconnect_gen
-        echom 'test : goal'
         let data = s:try_wbconnect_extract(a:sql)
-        echom 'profile : ' . data['profile']
-        echom 'group : ' . data['group']
         let profile = data['profile']
         let group = data['group']
         if group != ''
