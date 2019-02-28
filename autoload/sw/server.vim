@@ -25,7 +25,7 @@ let s:pattern_prompt = s:pattern_prompt_begin . '$'
 let s:pattern_wait_input = '\v^([a-zA-Z_][a-zA-Z0-9_]*( \[[^\]]+\])?: |([^\>]+\> )?([^\>]+\> )*Username|([^\>]+\> )*Password: |([^\>]+\>[ ]+)?Do you want to run the command [A-Z]+\? \(Yes\/No\/All\)[ ]+)$'
 let s:params_history = []
 let s:pattern_new_connection = '\v^Connection to "([^"]+)" successful$'
-let s:pattern_wbconnect = '\c\v.*wbconnect[ \t\n\r]+-?(#WHAT#)?\=?([ \r\n\t]*)?((["''])([^\4]+)\4|([^ \r\n\t]+)).*$'
+let s:pattern_wbconnect = '\c\v.*wbconnect[ \t\n\r]+-?(#WHAT#)?\=?([ \r\n\t]*)?((["''])([^"'']+)\4|([^ \r\n\t]+)).*$'
 let s:pattern_wbconnect_gen = '\v\c^[ \t\n\r]*wbconnect.*$'
 let s:timer = {'id': -1, 'sec' : 0}
 let s:events = {}
@@ -219,8 +219,20 @@ function! s:try_wbconnect_extract(sql)
 
     if substitute(a:sql, pprofile, '\1', 'g') == ''
         let group = ''
+        echom '1_test1 :' . substitute(a:sql, pprofile, '\1', 'g')
+        echom '1_test2 :' . substitute(a:sql, pprofile, '\2', 'g')
+        echom '1_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
+        echom '1_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
+        echom '1_test4 :' . substitute(a:sql, pprofile, '\4', 'g')
+        echom '1_test5 :' . substitute(a:sql, pprofile, '\5', 'g')
         let profile = substitute(a:sql, pprofile, '\6', 'g')
     else
+        echom '2_test1 :' . substitute(a:sql, pprofile, '\1', 'g')
+        echom '2_test2 :' . substitute(a:sql, pprofile, '\2', 'g')
+        echom '2_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
+        echom '2_test3 :' . substitute(a:sql, pprofile, '\3', 'g')
+        echom '2_test4 :' . substitute(a:sql, pprofile, '\4', 'g')
+        echom '2_test5 :' . substitute(a:sql, pprofile, '\5', 'g')
         let profile = substitute(a:sql, pprofile, '\5', 'g')
         let group = substitute(a:sql, pgroup, '\5', 'g')
     endif
@@ -243,12 +255,11 @@ function! sw#server#execute_sql(sql, ...)
     endif
     echom 'execute_sql---------------------------'
     echom 'sql : ' . a:sql
-    echom 'pattern : ' . s:pattern_wbconnect_gen
     if a:sql =~ s:pattern_wbconnect_gen
         echom 'test : goal'
         let data = s:try_wbconnect_extract(a:sql)
         echom 'profile : ' . data['profile']
-        echom 'profile : ' . data['group']
+        echom 'group : ' . data['group']
         let profile = data['profile']
         let group = data['group']
         if group != ''
