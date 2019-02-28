@@ -241,8 +241,14 @@ function! sw#server#execute_sql(sql, ...)
     elseif a:0 >= 1
         let channel = a:1
     endif
+    echom 'execute_sql---------------------------'
+    echom 'sql : ' . a:sql
+    echom 'pattern : ' . s:pattern_wbconnect_gen
     if a:sql =~ s:pattern_wbconnect_gen
+        echom 'test : goal'
         let data = s:try_wbconnect_extract(a:sql)
+        echom 'profile : ' . data['profile']
+        echom 'profile : ' . data['group']
         let profile = data['profile']
         let group = data['group']
         if group != ''

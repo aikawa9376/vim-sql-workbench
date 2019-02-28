@@ -9,8 +9,10 @@ let s:script_path = sw#script_path()
 " Initiates a new connection with a given profile
 " to create a new report
 function! sw#report#get(profile)
+    echom 'get start------------------------------------------'
     let file = g:sw_tmp . '/' . sw#servername() . '-' . sw#generate_unique_id()
     let command = 'wbschemareport types="TABLE,VIEW,MATERIALIZED VIEW,SYNONYM" -file=' . file . ' -objects=% -stylesheet=' . s:script_path . "resources/wbreport2vim.xslt -xsltOutput=" . s:get_name(a:profile) . '.vim;'
+    echom command
     call sw#background#run(a:profile, command, 'sw#report#message_handler')
 endfunction
 
@@ -125,6 +127,7 @@ function! sw#report#get_references_sql(profile, table, column)
 endfunction
 
 function! sw#report#profile_changed(args)
+    echom 'profile_changed------------------------'
     if s:in_event
         return
     endif
@@ -132,6 +135,7 @@ function! sw#report#profile_changed(args)
     let profiles = sw#cache_get('profiles')
     let profile = a:args['profile']
     if has_key(profiles, profile) && has_key(profiles[profile]['props'], 'report') && profiles[profile]['props']['report'] == 'true'
+        echom 'get_report------------------------'
         call sw#report#get(profile)
     endif
     let s:in_event = 0
