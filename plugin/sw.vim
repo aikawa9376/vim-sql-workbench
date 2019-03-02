@@ -264,5 +264,9 @@ autocmd sw BufDelete,BufWipeout * call sw#session#sync()
 autocmd sw SessionLoadPost * call sw#session#restore()
 autocmd sw VimEnter * call sw#profiles#update('')
 
+function! SWSqlLightLineProfile() abort
+    return sw#server#get_buffer_profile(sw#bufname('%'))
+endfunction
+
 call sw#server#add_event('profile_changed', 'sw#report#profile_changed')
 call sw#server#add_event('new_instance', 'sw#profiles#update')
