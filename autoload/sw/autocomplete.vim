@@ -238,6 +238,7 @@ endfunction
 function! sw#autocomplete#tables(base)
     let result = []
     for table in keys(s:get_cache_tables())
+        " TODO ここでプロファイルと一致しているカタログがあれば、そのテーブルだけ表示する機能
         if table =~ '\c^t#'
             if s:get_cache_data_name(table) =~ '\c^' . a:base
                 call add(result, {'word': s:get_cache_data_name(table), 'menu': s:get_cache_data_type(table)})

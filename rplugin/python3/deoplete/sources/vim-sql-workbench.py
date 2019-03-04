@@ -14,4 +14,4 @@ class Source(Base):
             # カーソル下の単語を補完したい
             return self.vim.call('sw#autocomplete#perform', 0, '')
         except NvimError:
-            return ['ringo', 'mikan', 'suika']
+            return []

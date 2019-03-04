@@ -2,8 +2,8 @@
 ""execute "setlocal <M-s>=\es"
 ""execute "setlocal <M-m>=\em"
 ""execute "setlocal <M-d>=\ed"
-nmap <buffer> <C-i> :SWSqlObjectInfo<cr>
-nmap <buffer> <Leader>os :SWSqlObjectSource<cr>
-nmap <buffer> <C-m> :SWSqlToggleMessages<cr>
-nmap <buffer> <Leader>d :SWSqlToggleFormDisplay<cr>
-nmap <buffer> <leader><C-@> :SWSqlRefreshResultSet<cr>
+nmap <buffer> <M-i> :SWSqlObjectInfo<cr>
+nmap <buffer> <M-s> :SWSqlObjectSource<cr>
+nmap <buffer> <M-m> :SWSqlToggleMessages<cr>
+nmap <buffer> <M-d> :SWSqlToggleFormDisplay<cr>
+nmap <buffer> <M-r> :SWSqlRefreshResultSet<cr>
