@@ -1563,6 +1563,7 @@ function! sw#sqlwindow#toggle_buffer()
         let s:current_buffer = sw#bufname('%')
     else
         call sw#sqlwindow#open_resulset_window()
+        execute bufwinnr(bufnr(s:current_buffer)) . 'wincmd w'
     endif
     let s:position = getcurpos()
 endfunction
