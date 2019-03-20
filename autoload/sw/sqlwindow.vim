@@ -1552,3 +1552,17 @@ function! sw#sqlwindow#include(alt_delimiter, ...)
     let file = a:0 ? a:1 : sw#bufname('%')
     call s:include(file, delimiter)
 endfunction
+
+function! sw#sqlwindow#toggle_buffer()
+    let s:url = sw#server#get_buffer_url(sw#bufname('%'))
+    let s:current_buffer = sw#bufname('%')
+    let name = sw#sqlwindow#get_resultset_name()
+    echomsg string('name:' . name)
+    echomsg string('url:' . s:url)
+    call sw#goto_window(name)
+    if sw#bufname('%') == name
+        bdelete
+        let s:current_buffer = sw#bufname('%')
+    endif
+    let s:position = getcurpos()
+endfunction

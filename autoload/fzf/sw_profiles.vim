@@ -36,7 +36,7 @@ endfunction
 
 " Allow it to be called later
 function! fzf#sw_profiles#id()
-	return s:id
+    return s:id
 endfunction
 
 function! fzf#sw_profiles#enter()
